@@ -48,6 +48,7 @@ auto construct() -> void {
   media.append(new PocketChallengeV2);
   media.append(new SC3000);
   media.append(new SG1000);
+  media.append(new Spectrum);
   media.append(new SufamiTurbo);
   media.append(new SuperFamicom);
   media.append(new SuperGrafx);

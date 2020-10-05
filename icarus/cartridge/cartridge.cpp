@@ -15,6 +15,7 @@
 #include "pc-engine.cpp"
 #include "sg-1000.cpp"
 #include "sc-3000.cpp"
+#include "spectrum.cpp"
 #include "sufami-turbo.cpp"
 #include "super-famicom.cpp"
 #include "supergrafx.cpp"
