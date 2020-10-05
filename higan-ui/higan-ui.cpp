@@ -27,6 +27,7 @@ Input inputInstance;
 #include <sfc/interface/interface.hpp>
 #include <sg/interface/interface.hpp>
 #include <ws/interface/interface.hpp>
+#include <spec/interface/interface.hpp>
 
 #include <nall/main.hpp>
 auto nall::main(Arguments arguments) -> void {
@@ -157,6 +158,10 @@ auto nall::main(Arguments arguments) -> void {
 
   #ifdef CORE_WS
   interfaces.append(new higan::WonderSwan::WonderSwanColorInterface);
+  #endif
+
+  #ifdef CORE_SPEC
+  interfaces.append(new higan::Spectrum::Spectrum48kInterface);
   #endif
 
   higan::platform = &emulator;
