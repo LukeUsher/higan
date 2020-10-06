@@ -102,10 +102,8 @@ auto ULA::fetch(uint16 address) -> uint8 {
   return busValue;
 }
 
-auto ULA::read(uint16 port) -> uint8 {
-  uint8 value;
-
-  uint5 keys = 0x1F;
+auto ULA::in(uint16 port) -> uint8 {
+  uint5 keys = 0x1f;
 
   for(uint n : range(8)) {
     if (!port.bit(n + 8)) {
@@ -113,6 +111,7 @@ auto ULA::read(uint16 port) -> uint8 {
     }
   }
 
+  uint8 value;
   value.bit(0, 4) = keys;
   value.bit(5) = 1;
   value.bit(6) = io.mic | io.ear;
@@ -120,7 +119,7 @@ auto ULA::read(uint16 port) -> uint8 {
   return value;
 }
 
-auto ULA::write(uint8 data) -> void {
+auto ULA::out(uint8 data) -> void {
   io.borderColor = data.bit(0, 2);
   io.mic = data.bit(3);
   io.ear = data.bit(4);

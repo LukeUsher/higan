@@ -62,7 +62,7 @@ auto Keyboard::read(uint8 row) -> uint5 {
       {37, 39, 35, 34, 33},
   };
 
-  uint5 data = 0x1F;
+  uint5 data = 0x1f;
 
   for(uint _key : range(5)) {
     if(auto node = keys[rows[row][_key]]) {

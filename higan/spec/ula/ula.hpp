@@ -12,12 +12,12 @@ struct ULA : Thread {
   auto power() -> void;
 
   auto fetch(uint16 address) -> uint8;
-  auto read(uint16 port) -> uint8;
-  auto write(uint8 data) -> void;
+  auto in(uint16 port) -> uint8;
+  auto out(uint8 data) -> void;
 
   auto activeDisplay() -> uint1 { return vcounter >= screen_top_start && vcounter < border_bottom_start && hcounter >= screen_left_start && hcounter < border_right_start; }
   auto lineCycles() -> uint32 { return (hcounter - screen_left_start) / 2; }
-  auto floatingBus() -> uint8 { return activeDisplay() ? busValue : (uint8)0xFF; }
+  auto floatingBus() -> uint8 { return activeDisplay() ? busValue : (uint8)0xff; }
 
   auto serialize(serializer&) -> void;
 
