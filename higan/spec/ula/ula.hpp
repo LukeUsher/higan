@@ -11,11 +11,13 @@ struct ULA : Thread {
   auto refresh() -> void;
   auto power() -> void;
 
+  auto fetch(uint16 address) -> uint8;
   auto read(uint16 port) -> uint8;
   auto write(uint8 data) -> void;
 
   auto activeDisplay() -> uint1 { return vcounter >= screen_top_start && vcounter < border_bottom_start && hcounter >= screen_left_start && hcounter < border_right_start; }
-  auto lineCycles() -> uint32 { return (hcounter - screen_left_start) / 2;}
+  auto lineCycles() -> uint32 { return (hcounter - screen_left_start) / 2; }
+  auto floatingBus() -> uint8 { return activeDisplay() ? busValue : (uint8)0xFF; }
 
   auto serialize(serializer&) -> void;
 
@@ -32,6 +34,7 @@ struct ULA : Thread {
   uint16 vcounter;
   uint5 flashFrameCounter;
   uint1 flashState;
+  uint8 busValue;
 
   const uint border_top_start = 16;
   const uint screen_top_start = border_top_start + 48;

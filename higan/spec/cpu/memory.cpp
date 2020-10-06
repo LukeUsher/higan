@@ -25,7 +25,7 @@ auto CPU::in(uint16 address) -> uint8 {
     return ula.read(address);
   }
 
-  return 0xFF;
+  return ula.floatingBus();
 }
 
 auto CPU::out(uint16 address, uint8 data) -> void {

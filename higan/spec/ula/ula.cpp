@@ -41,14 +41,14 @@ auto ULA::main() -> void {
       pixel_addr.bit( 8, 10) = y.bit(0, 2);
       pixel_addr.bit(11, 12) = y.bit(6, 7);
       pixel_addr.bit(13, 15) = 0x02;
-      const uint8 pixels = cpu.ram.read(pixel_addr - 0x4000);
+      const uint8 pixels = fetch(pixel_addr);
 
       uint16 attr_addr;
       attr_addr.bit( 0,  4) = x_tile;
       attr_addr.bit( 5,  7) = y.bit(3, 5);
       attr_addr.bit( 8,  9) = y.bit(6, 7);
       attr_addr.bit(10, 15) = 0x16;
-      const uint8 attr = cpu.ram.read(attr_addr - 0x4000);
+      const uint8 attr = fetch(attr_addr);
 
       const auto ink   = attr.bit(0, 2);
       const auto paper = attr.bit(3, 5);
@@ -95,6 +95,11 @@ auto ULA::power() -> void {
   vcounter = 0;
   flashFrameCounter = 0;
   flashState = 0;
+}
+
+auto ULA::fetch(uint16 address) -> uint8 {
+  busValue = cpu.ram.read(address - 0x4000);
+  return busValue;
 }
 
 auto ULA::read(uint16 port) -> uint8 {
