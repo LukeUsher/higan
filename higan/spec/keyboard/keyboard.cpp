@@ -12,7 +12,7 @@ auto Keyboard::load(Node::Object parent) -> void {
   port->setAllocate([&](auto name) { return allocate(port, name); });
   port->setConnect([&] { connect(); });
   port->setDisconnect([&] { disconnect(); });
-  port->setSupported({"British"});
+  port->setSupported({"Original"});
 }
 
 auto Keyboard::unload() -> void {
@@ -26,7 +26,7 @@ auto Keyboard::allocate(Node::Port parent, string name) -> Node::Peripheral {
 
 auto Keyboard::connect() -> void {
   Markup::Node document;
-  if(auto fp = platform->open(layout, "layout-48k.bml", File::Read)) {
+  if(auto fp = platform->open(layout, "layout.bml", File::Read)) {
     document = BML::unserialize(fp->reads());
   }
 

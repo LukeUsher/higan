@@ -29,6 +29,7 @@ auto System::load(Node::Object& root) -> void {
   cpu.load(node);
   snapshotLoader.load(node);
   keyboard.load(node);
+  expansionPort.load(node);
   ula.load(node);
 }
 
@@ -43,6 +44,7 @@ auto System::unload() -> void {
   ula.unload();
   keyboard.unload();
   snapshotLoader.unload();
+  expansionPort.unload();
   node = {};
   rom.bios.reset();
 }
