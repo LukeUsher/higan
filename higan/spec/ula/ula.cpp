@@ -10,7 +10,7 @@ auto ULA::load(Node::Object parent) -> void {
   node = parent->append<Node::Component>("ULA");
 
   screen_ = node->append<Node::Screen>("Screen");
-  screen_->colors(17, {&ULA::color, this});
+  screen_->colors(16, {&ULA::color, this});
   screen_->setSize(352, 296);
   screen_->setScale(1.0, 1.0);
   screen_->setAspect(1.0, 1.0);
@@ -33,9 +33,9 @@ auto ULA::main() -> void {
     const auto pixel = ((vcounter - border_top_start) * 352) + hcounter - border_left_start;
 
     if (vcounter < screen_top_start || vcounter >= border_bottom_start) {
-      buffer[pixel] = io.borderColor + 1;
+      buffer[pixel] = io.borderColor;
     } else if (hcounter < screen_left_start || hcounter >= border_right_start) {
-      buffer[pixel] = io.borderColor + 1;
+      buffer[pixel] = io.borderColor;
     } else {
       const uint16 y = vcounter - screen_top_start;
       const uint16 x = hcounter - screen_left_start;
@@ -63,7 +63,7 @@ auto ULA::main() -> void {
       const auto flash = attr.bit(7);
 
       const uint1 use_ink = (pixels.bit(7 - (x & 7))) ^ (flash & flashState);
-      buffer[pixel] = (use_ink ? ink : paper) + (bright * 8) + 1;
+      buffer[pixel] = (use_ink ? ink : paper) + (bright * 8);
     }
   }
 
