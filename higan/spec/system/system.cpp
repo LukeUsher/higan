@@ -15,7 +15,7 @@ auto System::load(Node::Object& root) -> void {
   if(node) unload();
 
   information = {};
-  if(interface->name() == "Spectrum 48k" ) information.model = Model::Spectrum48k;
+  if(interface->name() == "ZX Spectrum 48k" ) information.model = Model::Spectrum48k;
 
   node = Node::System::create(interface->name());
   root = node;

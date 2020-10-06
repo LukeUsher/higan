@@ -6,7 +6,7 @@ Snapshot& snapshot = snapshotLoader.snapshot;
 #include "slot.cpp"
 
 auto Snapshot::allocate(Node::Port parent) -> Node::Peripheral {
-  return node = parent->append<Node::Peripheral>("Spectrum (Snapshots)");
+  return node = parent->append<Node::Peripheral>("ZX Spectrum (Snapshots)");
 }
 
 auto Snapshot::connect() -> void {

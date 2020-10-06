@@ -6,7 +6,7 @@ Keyboard keyboard;
 
 auto Keyboard::load(Node::Object parent) -> void {
   port = parent->append<Node::Port>("Keyboard");
-  port->setFamily("Spectrum");
+  port->setFamily("ZX Spectrum");
   port->setType("Keyboard");
   port->setHotSwappable(true);
   port->setAllocate([&](auto name) { return allocate(port, name); });

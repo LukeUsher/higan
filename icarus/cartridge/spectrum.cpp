@@ -1,5 +1,5 @@
 struct Spectrum : Cartridge {
-  auto name() -> string override { return "Spectrum (Snapshots)"; }
+  auto name() -> string override { return "ZX Spectrum (Snapshots)"; }
   auto extensions() -> vector<string> override { return {"sna"}; }
   auto export(string location) -> vector<uint8_t> override;
   auto heuristics(vector<uint8_t>& data, string location) -> string override;
