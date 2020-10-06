@@ -107,19 +107,15 @@ auto ULA::power() -> void {
 auto ULA::read(uint16 port) -> uint8 {
   uint8 value;
 
-  value.bit(0,4) = 0x1F;
+  uint5 keys = 0x1F;
 
-  switch(port.bit(8,15)) {
-    case 0xFE: value.bit(0,4) = keyboard.read(0); break;
-    case 0xFD: value.bit(0,4) = keyboard.read(1); break;
-    case 0xFB: value.bit(0,4) = keyboard.read(2); break;
-    case 0xF7: value.bit(0,4) = keyboard.read(3); break;
-    case 0xEF: value.bit(0,4) = keyboard.read(4); break;
-    case 0xDF: value.bit(0,4) = keyboard.read(5); break;
-    case 0xBF: value.bit(0,4) = keyboard.read(6); break;
-    case 0x7F: value.bit(0,4) = keyboard.read(7); break;
+  for(uint n : range(8)) {
+    if (!port.bit(n + 8)) {
+      keys &= keyboard.read(n);
+    }
   }
 
+  value.bit(0, 4) = keys;
   value.bit(5) = 1;
   value.bit(6) = io.mic | io.ear;
   value.bit(7) = 1;
