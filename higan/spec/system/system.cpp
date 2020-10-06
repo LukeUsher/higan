@@ -27,6 +27,7 @@ auto System::load(Node::Object& root) -> void {
 
   scheduler.reset();
   cpu.load(node);
+  snapshotLoader.load(node);
   keyboard.load(node);
   ula.load(node);
 }
@@ -41,6 +42,7 @@ auto System::unload() -> void {
   cpu.unload();
   ula.unload();
   keyboard.unload();
+  snapshotLoader.unload();
   node = {};
   rom.bios.reset();
 }
@@ -64,6 +66,7 @@ auto System::power() -> void {
   cpu.power();
   keyboard.power();
   ula.power();
+  snapshot.power();
   scheduler.power(cpu);
 
   information.serializeSize[0] = serializeInit(0);
