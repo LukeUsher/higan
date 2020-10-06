@@ -1,16 +1,11 @@
 #include <spec/spec.hpp>
 
-
-#include <Windows.h>
-
 namespace higan::Spectrum {
 
 Snapshot& snapshot = snapshotLoader.snapshot;
 #include "slot.cpp"
 
 auto Snapshot::allocate(Node::Port parent) -> Node::Peripheral {
-  AllocConsole();
-  freopen("CONOUT$", "w", stdout);
   return node = parent->append<Node::Peripheral>("Spectrum (Snapshots)");
 }
 
