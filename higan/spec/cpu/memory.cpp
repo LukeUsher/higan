@@ -1,22 +1,25 @@
 auto CPU::read(uint16 address) -> uint8 {
-  if(Model::Spectrum48k()) {
-    if (address < 0x4000) {
-      return rom.bios.read(address);
-    }
-
-    contendMemory();
-    return ram.read(address - 0x4000);
+  if (address < 0x4000) {
+    return rom.bios.read(address);
   }
-  return 0xff;
+
+  if (address < 0x8000) {
+    contendMemory();
+  }
+
+  return ram.read(address - 0x4000);
 }
 
 auto CPU::write(uint16 address, uint8 data) -> void {
-  if(Model::Spectrum48k()) {
-    if (address >= 0x4000) {
-      contendMemory();
-      return ram.write(address - 0x4000, data);
-    }
+  if (address < 0x4000) {
+    return;
   }
+
+  if (address < 0x8000) {
+     contendMemory();
+  }
+
+  return ram.write(address - 0x4000, data);
 }
 
 auto CPU::in(uint16 address) -> uint8 {
