@@ -62,9 +62,9 @@ auto ULA::main() -> void {
 
   step(1);
 
-  if (++hcounter == 448) {
+  if (++hcounter == border_right_end) {
     hcounter = 0;
-    if (++vcounter == 312) {
+    if (++vcounter == border_bottom_end) {
       if (++flashFrameCounter == 31) {
         flashState ^= 1;
       }

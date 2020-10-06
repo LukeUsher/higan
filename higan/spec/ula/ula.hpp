@@ -39,9 +39,11 @@ struct ULA : Thread {
   const uint border_top_start = 16;
   const uint screen_top_start = border_top_start + 48;
   const uint border_bottom_start = screen_top_start + 192;
+  const uint border_bottom_end = border_bottom_start + 56;
   const uint border_left_start = 96;
   const uint screen_left_start = border_left_start + 48;
   const uint border_right_start = screen_left_start + 256;
+  const uint border_right_end = border_right_start + 48;
   const uint contention_delay[8] = { 5, 4, 3, 2, 1, 0, 0, 6 };
 };
 
