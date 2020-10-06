@@ -37,6 +37,9 @@ struct CPU : Z80, Z80::Bus, Thread {
   auto in(uint16 address) -> uint8 override;
   auto out(uint16 address, uint8 data) -> void override;
 
+  auto contendMemory() -> void;
+  auto contendIo() -> void;
+
   //serialization.cpp
   auto serialize(serializer&) -> void;
 

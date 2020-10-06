@@ -22,13 +22,6 @@ auto ULA::unload() -> void {
 }
 
 auto ULA::main() -> void {
-  constexpr auto border_top_start = 16;
-  constexpr auto screen_top_start = border_top_start + 48;
-  constexpr auto border_bottom_start = screen_top_start + 192;
-  constexpr auto border_left_start = 96;
-  constexpr auto screen_left_start = border_left_start + 48;
-  constexpr auto border_right_start = screen_left_start + 256;
-
   if (vcounter >= border_top_start && hcounter >= border_left_start) {
     const auto pixel = ((vcounter - border_top_start) * 352) + hcounter - border_left_start;
 
@@ -48,14 +41,14 @@ auto ULA::main() -> void {
       pixel_addr.bit( 8, 10) = y.bit(0, 2);
       pixel_addr.bit(11, 12) = y.bit(6, 7);
       pixel_addr.bit(13, 15) = 0x02;
-      const uint8 pixels = cpu.read(pixel_addr);
+      const uint8 pixels = cpu.ram.read(pixel_addr - 0x4000);
 
       uint16 attr_addr;
       attr_addr.bit( 0,  4) = x_tile;
       attr_addr.bit( 5,  7) = y.bit(3, 5);
       attr_addr.bit( 8,  9) = y.bit(6, 7);
       attr_addr.bit(10, 15) = 0x16;
-      const uint8 attr = cpu.read(attr_addr);
+      const uint8 attr = cpu.ram.read(attr_addr - 0x4000);
 
       const auto ink   = attr.bit(0, 2);
       const auto paper = attr.bit(3, 5);

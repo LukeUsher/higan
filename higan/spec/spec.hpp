@@ -16,6 +16,7 @@ namespace higan::Spectrum {
   };
 
   #include <spec/system/system.hpp>
+  #include <spec/snapshot/snapshot.hpp>
   #include <spec/keyboard/keyboard.hpp>
   #include <spec/cpu/cpu.hpp>
   #include <spec/ula/ula.hpp>
