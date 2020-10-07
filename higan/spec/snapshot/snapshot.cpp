@@ -47,8 +47,8 @@ auto Snapshot::power() -> void {
   cpu.r.hl.word = rom.read(0x09) | rom.read(0x0A) << 8;
   cpu.r.de.word = rom.read(0x0B) | rom.read(0x0C) << 8;
   cpu.r.bc.word = rom.read(0x0D) | rom.read(0x0E) << 8;
-  cpu.r.ix.word = rom.read(0x0F) | rom.read(0x10) << 8;
-  cpu.r.iy.word = rom.read(0x11) | rom.read(0x12) << 8;
+  cpu.r.iy.word = rom.read(0x0F) | rom.read(0x10) << 8;
+  cpu.r.ix.word = rom.read(0x11) | rom.read(0x12) << 8;
   cpu.r.iff2 = rom.read(0x13);
   cpu.r.ir.byte.lo = rom.read(0x14);
   cpu.r.af.word = rom.read(0x15) | rom.read(0x16) << 8;
