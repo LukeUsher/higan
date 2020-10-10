@@ -1,6 +1,7 @@
 struct ULA : Thread {
   Node::Component node;
   Node::Screen screen_;
+  Node::Stream stream;
 
   auto load(Node::Object) -> void;
   auto unload() -> void;

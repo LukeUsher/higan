@@ -14,14 +14,25 @@ auto ULA::load(Node::Object parent) -> void {
   screen_->setSize(352, 296);
   screen_->setScale(1.0, 1.0);
   screen_->setAspect(1.0, 1.0);
+
+  stream = node->append<Node::Stream>("ULA");
+  stream->setChannels(1);
+  stream->setFrequency(system.frequency());
 }
 
 auto ULA::unload() -> void {
   node = {};
   screen_ = {};
+  stream = {};
 }
 
 auto ULA::main() -> void {
+  // Audio is sampled at system frequency, not pixel frequency
+  // So we sample on every even pixel
+  if ((hcounter & 1) == 0) {
+    stream->sample((0.75 * io.ear) + (0.25 * io.mic));
+  }
+
   if (vcounter >= border_top_start && hcounter >= border_left_start) {
     const auto pixel = ((vcounter - border_top_start) * 352) + hcounter - border_left_start;
 
