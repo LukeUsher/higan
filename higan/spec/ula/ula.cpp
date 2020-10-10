@@ -70,20 +70,31 @@ auto ULA::main() -> void {
       buffer[pixel] = (use_ink ? ink : paper) + (bright * 8);
     }
   }
-
   step(1);
 
-  if (++hcounter == border_right_end) {
+  // Increment pixel counters
+  hcounter++;
+  if (hcounter == border_right_end) {
     hcounter = 0;
-    if (++vcounter == border_bottom_end) {
-      if (++flashFrameCounter == 31) {
-        flashState ^= 1;
-      }
-
+    vcounter++;
+    if (vcounter == border_bottom_end) {
       vcounter = 0;
-      cpu.triggerIrq();
-      frame();
     }
+  }
+
+  // IRQ happens on the cycle as active display starts - 64 lines
+  if (hcounter == screen_left_start && vcounter == 0) {
+    if (++flashFrameCounter == 31) {
+      flashState ^= 1;
+    }
+
+    cpu.setIrq(true);
+    frame();
+  }
+
+  // IRQ ends 64 pixel cycles (32 cpu cycles) from IRQ start
+  if (hcounter == screen_left_start + 64 && vcounter == 0) {
+    cpu.setIrq(false);
   }
 }
 

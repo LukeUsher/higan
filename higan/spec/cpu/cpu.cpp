@@ -22,10 +22,9 @@ auto CPU::unload() -> void {
 }
 
 auto CPU::main() -> void {
-  if(irqPending) {
+  if(irqLine) {
     debugger.interrupt("IRQ");
     irq(1, 0x0038, 0xff);
-    irqPending = false;
   }
 
   debugger.instruction();
@@ -44,11 +43,11 @@ auto CPU::power() -> void {
 
   r.pc = 0x0000;  //reset vector address
 
-  irqPending = false;
+  irqLine = false;
 }
 
-auto CPU::triggerIrq() -> void {
-  irqPending = true;
+auto CPU::setIrq(bool line) -> void {
+  irqLine = line;
 }
 
 }

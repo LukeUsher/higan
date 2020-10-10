@@ -28,7 +28,7 @@ struct CPU : Z80, Z80::Bus, Thread {
   auto step(uint clocks) -> void override;
 
   auto power() -> void;
-  auto triggerIrq() -> void;
+  auto setIrq(bool line) -> void;
 
   //memory.cpp
   auto read(uint16 address) -> uint8 override;
@@ -44,7 +44,7 @@ struct CPU : Z80, Z80::Bus, Thread {
   auto serialize(serializer&) -> void;
 
 private:
-  uint1 irqPending;
+  uint1 irqLine;
 };
 
 extern CPU cpu;
