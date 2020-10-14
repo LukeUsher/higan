@@ -9,7 +9,9 @@ CPU cpu;
 
 auto CPU::load(Node::Object parent) -> void {
   if(Model::Spectrum48k()) ram.allocate(48_KiB);
+  if(Model::Spectrum128()) ram.allocate(128_KiB);
 
+  ram.fill(0x00);
   node = parent->append<Node::Component>("CPU");
 
   debugger.load(node);

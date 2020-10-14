@@ -1,12 +1,13 @@
 struct ROM {
   Memory::Readable<uint8> bios;
+  Memory::Readable<uint8> sub;
 };
 
 struct System {
   Node::Object node;
   Node::String regionNode;
 
-  enum class Model : uint { Spectrum48k, };
+  enum class Model : uint { Spectrum48k, Spectrum128 };
   enum class Region : uint { PAL };
 
   auto model() const -> Model { return information.model; }
@@ -26,6 +27,11 @@ struct System {
   auto serialize(bool synchronize) -> serializer;
   auto unserialize(serializer&) -> bool;
 
+  // 128k specific state
+  bool romBank;
+  bool screenBank;
+  uint3 ramBank;
+  bool pagingDisabled;
 private:
   struct Information {
     Model model = Model::Spectrum48k;
@@ -44,5 +50,6 @@ extern ROM rom;
 extern System system;
 
 auto Model::Spectrum48k() -> bool { return system.model() == System::Model::Spectrum48k; }
+auto Model::Spectrum128() -> bool { return system.model() == System::Model::Spectrum128; }
 
 auto Region::PAL() -> bool { return system.region() == System::Region::PAL; }

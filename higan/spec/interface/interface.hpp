@@ -22,6 +22,10 @@ struct Spectrum48kInterface : AbstractInterface {
   auto name() -> string override { return "ZX Spectrum 48k"; }
 };
 
+struct Spectrum128Interface : AbstractInterface {
+  auto name() -> string override { return "ZX Spectrum 128"; }
+};
+
 }
 
 #endif

@@ -162,6 +162,7 @@ auto nall::main(Arguments arguments) -> void {
 
   #ifdef CORE_SPEC
   interfaces.append(new higan::Spectrum::Spectrum48kInterface);
+  interfaces.append(new higan::Spectrum::Spectrum128Interface);
   #endif
 
   higan::platform = &emulator;

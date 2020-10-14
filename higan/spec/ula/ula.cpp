@@ -117,9 +117,27 @@ auto ULA::power() -> void {
   vcounter = 0;
   flashFrameCounter = 0;
   flashState = 0;
+
+  if (Model::Spectrum128()) {
+    // Spectrum 128 has 311 lines per frame, rather than 312
+    // Spectrum 128 has 456 pixel cycles per scanline, rather than 448
+    border_top_start = 16;
+    screen_top_start = border_top_start + 48;
+    border_bottom_start = screen_top_start + 192;
+    border_bottom_end = border_bottom_start + 55;
+    border_left_start = 104;
+    screen_left_start = border_left_start + 48;
+    border_right_start = screen_left_start + 256;
+    border_right_end = border_right_start + 48;
+  }
 }
 
 auto ULA::fetch(uint16 address) -> uint8 {
+  if (Model::Spectrum128()) {
+    busValue = cpu.readBanked(system.screenBank ? 7 : 5, address - 0x4000);
+    return busValue;
+  }
+
   busValue = cpu.ram.read(address - 0x4000);
   return busValue;
 }

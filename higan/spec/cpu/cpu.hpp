@@ -33,6 +33,8 @@ struct CPU : Z80, Z80::Bus, Thread {
   //memory.cpp
   auto read(uint16 address) -> uint8 override;
   auto write(uint16 address, uint8 data) -> void override;
+  auto readBanked(uint3 bank, uint16 address) -> uint8;
+  auto writeBanked(uint3 bank, uint16 address, uint8 data) -> void;
 
   auto in(uint16 address) -> uint8 override;
   auto out(uint16 address, uint8 data) -> void override;

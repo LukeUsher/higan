@@ -36,14 +36,14 @@ struct ULA : Thread {
   uint1 flashState;
   uint8 busValue;
 
-  const uint border_top_start = 16;
-  const uint screen_top_start = border_top_start + 48;
-  const uint border_bottom_start = screen_top_start + 192;
-  const uint border_bottom_end = border_bottom_start + 56;
-  const uint border_left_start = 96;
-  const uint screen_left_start = border_left_start + 48;
-  const uint border_right_start = screen_left_start + 256;
-  const uint border_right_end = border_right_start + 48;
+  uint border_top_start = 16;
+  uint screen_top_start = border_top_start + 48;
+  uint border_bottom_start = screen_top_start + 192;
+  uint border_bottom_end = border_bottom_start + 56;
+  uint border_left_start = 96;
+  uint screen_left_start = border_left_start + 48;
+  uint border_right_start = screen_left_start + 256;
+  uint border_right_end = border_right_start + 48;
 };
 
 extern ULA ula;

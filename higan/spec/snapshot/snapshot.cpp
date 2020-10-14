@@ -58,7 +58,7 @@ auto Snapshot::power() -> void {
 
   // Load the memory contents
   for(uint n : range(48_KiB)) {
-    cpu.ram.write(n, rom.read(n + 0x1B));
+    cpu.write(n + 0x4000, rom.read(n + 0x1B));
   };
 
   // simulate retn, this will prepare the snapshot for execution
