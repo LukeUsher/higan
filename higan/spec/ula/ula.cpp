@@ -100,7 +100,7 @@ auto ULA::main() -> void {
 
 auto ULA::step(uint clocks) -> void {
   Thread::step(clocks);
-  Thread::synchronize(cpu);
+  Thread::synchronize();
 }
 
 auto ULA::frame() -> void {

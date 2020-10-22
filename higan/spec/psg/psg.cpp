@@ -10,7 +10,7 @@ auto PSG::load(Node::Object parent) -> void {
 
   stream = node->append<Node::Stream>("PSG");
   stream->setChannels(1);
-  stream->setFrequency(system.frequency() / 2);
+  stream->setFrequency(system.frequency() / 16);
 }
 
 auto PSG::unload() -> void {
@@ -30,12 +30,12 @@ auto PSG::main() -> void {
 
 auto PSG::step(uint clocks) -> void {
   Thread::step(clocks);
-  Thread::synchronize(cpu);
+  Thread::synchronize();
 }
 
 auto PSG::power() -> void {
   AY38910::power();
-  Thread::create(system.frequency() / 2, {&PSG::main, this});
+  Thread::create(system.frequency() / 16, {&PSG::main, this});
 
   for(uint level : range(16)) {
     volume[level] = 1.0 / pow(2, 1.0 / 2 * (15 - level));
