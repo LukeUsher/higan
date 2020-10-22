@@ -35,7 +35,7 @@ auto System::load(Node::Object& root) -> void {
 
   scheduler.reset();
   cpu.load(node);
-  snapshotLoader.load(node);
+  tapeDeck.load(node);
   keyboard.load(node);
   expansionPort.load(node);
   ula.load(node);
@@ -55,7 +55,7 @@ auto System::unload() -> void {
   cpu.unload();
   ula.unload();
   keyboard.unload();
-  snapshotLoader.unload();
+  tapeDeck.unload();
   expansionPort.unload();
   node = {};
   rom.bios.reset();
@@ -100,7 +100,7 @@ auto System::power() -> void {
   if (model() == Model::Spectrum128) {
     psg.power();
   }
-  snapshot.power();
+  tapeDeck.power();
   scheduler.power(cpu);
 
   information.serializeSize[0] = serializeInit(0);

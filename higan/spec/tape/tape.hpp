@@ -1,6 +1,6 @@
-struct Snapshot {
+struct Tape : Thread {
   Node::Peripheral node;
-  Memory::Readable<uint8> rom;
+  Node::Stream stream;
 
   auto manifest() const -> string { return information.manifest; }
   auto name() const -> string { return information.name; }
@@ -10,15 +10,25 @@ struct Snapshot {
   auto connect() -> void;
   auto disconnect() -> void;
 
+  auto main() -> void;
+  auto step(uint clocks) -> void;
+
   auto save() -> void;
-  auto power() -> void;
 
 //private:
   struct Information {
     string manifest;
     string name;
   } information;
+
+  uint64 position;
+  uint64 length;
+  uint64 range;
+  uint64 frequency;
+  Memory::Writable<uint64> data;
+
 };
 
-#include "slot.hpp"
-extern Snapshot& snapshot;
+#include "tray.hpp"
+#include "deck.hpp"
+

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <higan/higan.hpp>
-
+#include <nall/decode/wav.hpp>
 #include <component/processor/z80/z80.hpp>
 #include <component/audio/ay38910/ay38910.hpp>
 
@@ -18,7 +18,7 @@ namespace higan::Spectrum {
   };
 
   #include <spec/system/system.hpp>
-  #include <spec/snapshot/snapshot.hpp>
+  #include <spec/tape/tape.hpp>
   #include <spec/keyboard/keyboard.hpp>
   #include <spec/expansion/expansion.hpp>
   #include <spec/cpu/cpu.hpp>
