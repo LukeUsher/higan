@@ -145,16 +145,9 @@ auto ULA::fetch(uint16 address) -> uint8 {
 auto ULA::in(uint16 port) -> uint8 {
   uint5 keys = 0x1f;
 
-
-  // HACK: If the tape deck is playing, DON'T update input
-  // TODO: Find a better way to handle this, perhaps keyboard needs an update thread?:
-  //  ZX Spectrum software polls this register too often during loading, killing performance!
-
-  if (!tapeDeck.playing()) {
-    for (uint n : range(8)) {
-      if (!port.bit(n + 8)) {
-        keys &= keyboard.read(n);
-      }
+  for (uint n : range(8)) {
+    if (!port.bit(n + 8)) {
+      keys &= keyboard.read(n);
     }
   }
 
