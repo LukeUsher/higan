@@ -5,7 +5,7 @@ struct Tape : Thread {
   auto manifest() const -> string { return information.manifest; }
   auto name() const -> string { return information.name; }
 
-  //cartridge.cpp
+  //tape.cpp
   auto allocate(Node::Port) -> Node::Peripheral;
   auto connect() -> void;
   auto disconnect() -> void;
