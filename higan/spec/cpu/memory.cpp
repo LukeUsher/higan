@@ -60,7 +60,7 @@ auto CPU::writeBanked(uint3 bank, uint16 address, uint8 data) -> void {
 
 auto CPU::in(uint16 address) -> uint8 {
   if (expansionPort.connected() && expansionPort.mapped(address, true)) {
-    if ((address & 1) == 0) {
+    if (address.bit(0) == 0) {
       // Some expansion port devices override keyboard (bits 0-4) of the ULA
       uint8 value = ula.in(address);
       uint8 expValue = expansionPort.in(address);
@@ -71,12 +71,12 @@ auto CPU::in(uint16 address) -> uint8 {
     return expansionPort.in(address);
   }
 
-  if ((address & 1) == 0) {
+  if (address.bit(0) == 0) {
     return ula.in(address);
   }
 
   if (Model::Spectrum128()) {
-    if (address == 0xfffd) {
+    if (address.bit(1) == 0 && address.bit(15) == 1)
       return psg.read();
     }
   }
@@ -89,25 +89,26 @@ auto CPU::out(uint16 address, uint8 data) -> void {
     expansionPort.out(address, data);
   }
 
-  if ((address & 1) == 0) {
+  if (address.bit(0) == 0) {
     ula.out(data);
   }
 
-
   if (Model::Spectrum128()) {
-    if ((address & ~0x7ffd) == 0 && !system.pagingDisabled) {
+    if (address.bit(1) == 0 && address.bit(15) == 0 && !system.pagingDisabled) {
       system.ramBank = data.bit(0, 2);
       system.screenBank = data.bit(3);
       system.romBank = data.bit(4);
       system.pagingDisabled = data.bit(5);
     }
 
-    if (address == 0xfffd) {
-      psg.select(data);
-    }
+    if (address.bit(1) == 0 && address.bit(15) == 1) {
+      if (address.bit(14) == 1) {
+        psg.select(data);
+      }
 
-    if (address == 0xbffd) {
-      psg.write(data);
+      if (address.bit(14) == 0) {
+        psg.write(data);
+      }
     }
   }
 }
