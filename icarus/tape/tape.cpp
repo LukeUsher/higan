@@ -30,3 +30,23 @@ auto Tape::manifest(vector<uint8_t>& data, string location) -> string {
   }
   return heuristics(data, location);
 }
+
+auto Tape::import(string location) -> string {
+  auto data = Media::read(location);
+  auto manifest = this->manifest(data, location);
+  if(!manifest) return "failed to parse tape";
+
+  auto document = BML::unserialize(manifest);
+  location = {pathname, Location::prefix(location), "/"};
+  if(!directory::create(location)) return "output directory not writable";
+
+  if(settings.createManifests) {
+    file::write({location, "manifest.bml"}, manifest);
+  }
+
+  location = {pathname, Location::prefix(location), "/"};
+  if(!directory::create(location)) return "output directory not writable";
+
+  file::write({location, "program.tape"}, data);
+  return {};
+}

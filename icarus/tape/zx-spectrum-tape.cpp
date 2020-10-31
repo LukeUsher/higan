@@ -12,12 +12,3 @@ auto ZXSpectrumTape::heuristics(vector<uint8_t>& data, string location) -> strin
   return s;
 }
 
-auto ZXSpectrumTape::import(string location) -> string {
-  auto input = Media::read(location);
-
-  location = {pathname, Location::prefix(location), "/"};
-  if(!directory::create(location)) return "output directory not writable";
-
-  file::write({location, "program.tape"}, input);
-  return {};
-}
