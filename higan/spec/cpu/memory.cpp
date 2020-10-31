@@ -76,7 +76,7 @@ auto CPU::in(uint16 address) -> uint8 {
   }
 
   if (Model::Spectrum128()) {
-    if (address.bit(1) == 0 && address.bit(15) == 1)
+    if (address.bit(1) == 0 && address.bit(15) == 1) {
       return psg.read();
     }
   }
